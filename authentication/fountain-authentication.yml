@@ -1,0 +1,38 @@
+generated: '2026-07-19'
+method: searched
+source: https://developer.fountain.com/reference/overview
+docs: https://developer.fountain.com/reference/overview
+summary:
+  types: [oauth2, apiKey]
+  api_key_in: [header]
+  oauth2_flows: [clientCredentials]
+schemes:
+- name: OAuth2ClientCredentials
+  type: oauth2
+  description: >-
+    Primary auth for the unified services.fountain.com gateway. Exchange an API
+    key/secret for a bearer token via the client-credentials flow; the token is
+    valid for 60 minutes and is sent as an Authorization bearer header on
+    subsequent requests (e.g. servicehire/v2/applicants, serviceworkforce/workers).
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://services.fountain.com/api/servicesecurity/processes/apikey/oauth/token
+    token_ttl_seconds: 3600
+  applies_to: https://services.fountain.com/api/
+- name: XAccessToken
+  type: apiKey
+  in: header
+  parameter_name: X-ACCESS-TOKEN
+  description: >-
+    Legacy per-tenant API key model for the classic Hire v2 API on tenant hosts
+    (api.fountain.com/v2 for app.fountain.com / web.fountain.com accounts, or
+    {region}.fountain.com/api/v2 for region-pinned tenants such as us-2). The API
+    key is generated per company under Developer Settings.
+  applies_to:
+  - https://api.fountain.com/v2/
+  - https://{region}.fountain.com/api/v2
+notes: >-
+  Two coexisting models: OAuth2 client-credentials on the new services gateway and
+  a legacy X-ACCESS-TOKEN header key on tenant hosts. No granular OAuth scope surface
+  is documented (client-credentials tokens carry the account's full permission set),
+  so no scopes/ artifact is emitted.
