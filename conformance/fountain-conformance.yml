@@ -1,0 +1,33 @@
+generated: '2026-07-19'
+method: searched
+source:
+- https://developer.fountain.com/reference/overview
+- https://developer.fountain.com/reference/deprecations
+- https://developer.fountain.com/reference/webhooks
+standards:
+- id: oauth2
+  conforms: true
+  evidence: OAuth2 client-credentials flow with a documented token endpoint (servicesecurity/processes/apikey/oauth/token)
+- id: rfc9116-security-txt
+  conforms: true
+  evidence: /.well-known/security.txt served across apex, www, api, and services hosts
+- id: rfc8594-sunset-header
+  conforms: true
+  evidence: Deprecations page documents Sunset header + Link rel="sunset" for deprecated endpoints
+- id: gdpr-right-to-erasure
+  conforms: true
+  evidence: Dedicated GDPR-anonymize applicant endpoints (with data-whitelist variant) implementing right-to-erasure
+- id: webhook-hmac-signing
+  conforms: true
+  evidence: Webhooks signed with hex-encoded HMAC-SHA-256 in the X-OBIQ-SIGNATURE-V2 header
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Error responses are JSON error objects; application/problem+json not observed in the docs
+- id: rest-json
+  conforms: true
+  evidence: JSON request/response REST API over HTTPS
+notes: >-
+  Fountain publishes a Vanta-hosted trust center (trust.fountain.com) and a security
+  page, but named certifications (e.g. SOC 2 / ISO 27001) are rendered client-side and
+  were not machine-verifiable in this pass; no `Compliance` pointer is asserted without
+  a confirmed named certification.

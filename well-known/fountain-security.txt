@@ -1,0 +1,4 @@
+Acknowledgments: https://fountain.com/security
+Contact: mailto:security@fountain.com
+Encryption: https://fountain.com/security
+Expires: 2058-10-07T20:30:00Z

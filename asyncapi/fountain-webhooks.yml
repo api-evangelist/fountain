@@ -1,0 +1,45 @@
+generated: '2026-07-19'
+method: searched
+source: https://developer.fountain.com/reference/webhooks
+spec_type: Webhooks
+transport: HTTP POST to a customer-configured payload URL (JSON body)
+configuration:
+  ui: Profile -> Company Settings -> Webhooks (Developer Settings)
+  url_pattern: https://www.fountain.com/{COMPANY_NAME}/webhooks/settings
+security:
+  signing: HMAC-SHA-256 (hex-encoded) over the raw request body
+  signature_header: X-OBIQ-SIGNATURE-V2
+  secret: the Fountain Hire private API token
+  egress_ip_allowlist: 15 published Fountain egress IPs (optional to whitelist)
+delivery:
+  retries: 2 retries after the initial failure
+  auto_disable: disabled after failing more than 10 times within 24 hours
+  guidance: process asynchronously to avoid slow/failed responses
+events:
+- group: Screening / Stage Transition
+  events:
+  - name: Stage Transition — First Stages
+  - name: Stage Transition — Approved Stages
+  - name: Stage Transition — Rejected Stages
+  - name: Stage Transition — On Hold Stages
+  - name: Stage Transition — All Stages
+  - name: Stage Transition — Selected Stages
+- group: Background Check Status
+  events:
+  - name: Checkr — Cleared
+  - name: Checkr — Considered / Consider (variants)
+  - name: Checkr — Suspended
+  - name: Checkr — Dispute
+  - name: Onfido — Cleared
+  - name: Onfido — Consider
+- group: Post-Hire
+  events:
+  - name: Posthire — Worker Deactivated
+  - name: Posthire — Worker Activated
+  - name: Posthire — Document Uploaded
+  - name: Posthire — Approve Documents
+notes: >-
+  Fountain documents a webhook surface but publishes no AsyncAPI document; this file
+  captures the webhook event catalog (type Webhooks). Payloads carry applicant or
+  worker data as JSON. Background-check events originate from third-party providers
+  (Checkr, Onfido) relayed through Fountain.

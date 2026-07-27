@@ -1,0 +1,40 @@
+generated: '2026-07-19'
+method: searched
+source:
+- https://developer.fountain.com/reference/rate-limitations
+- https://developer.fountain.com/llms.txt
+format: json-error-object
+envelope:
+  notes: >-
+    Errors return standard HTTP status codes with a JSON body carrying an error
+    message (e.g. rate-limit responses return "Too many API requests."). Fountain
+    does not advertise RFC 9457 application/problem+json.
+problems:
+- status: 401
+  title: Unauthorized
+  remediation: Missing/invalid OAuth bearer token or X-ACCESS-TOKEN; re-authenticate (tokens expire after 60 minutes).
+- status: 403
+  title: Forbidden
+  remediation: Authenticated principal lacks access to the requested account, opening, or resource.
+- status: 404
+  title: Not Found
+  remediation: Resource id does not exist or is outside the caller's tenant; also returned for async print requests older than 24 hours.
+- status: 410
+  title: Gone
+  remediation: Async operation failed and is no longer retrievable (e.g. a failed async print request).
+- status: 422
+  title: Unprocessable Entity
+  remediation: Request validation failed (missing/invalid fields such as an out-of-range max_attendees on a calendar slot).
+- status: 429
+  title: Too Many Requests
+  detail: 'Too many API requests.'
+  remediation: Default limit is 120 requests/minute; back off using the X-Api-Ratelimit-Reset timestamp.
+- status: 500
+  title: Internal Server Error
+  remediation: Transient server error; retry with backoff and contact support if it persists.
+async_status_codes:
+  notes: >-
+    Async print polling uses status codes semantically — 202 while the background job
+    runs, 200 with a presigned S3 URL (valid 1 hour) on completion, 410 on failure,
+    and 404 once the request is older than 24 hours.
+  source_operation: reference/get_api-v2-applicant-print-requests-external-id-download

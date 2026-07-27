@@ -1,0 +1,132 @@
+generated: '2026-07-19'
+method: derived
+source: llms/fountain-llms.txt (Fountain Hire v2 + Workforce documented operations)
+notes: >-
+  Entity graph derived from Fountain's documented REST resources and their path
+  nesting (parent/child) and id-reference fields. Cardinalities reflect the
+  documented endpoint structure, not an OpenAPI schema (no machine-readable spec
+  is published).
+entities:
+- name: Applicant
+  id_field: id
+  description: A candidate/applicant record moving through a hiring funnel.
+  endpoints: ['/v2/applicants', '/v2/applicants/{id}']
+- name: Opening
+  id_field: id
+  description: A job opening (requisition) applicants apply into.
+- name: Position
+  id_field: id
+  description: A job/position definition associated with openings and locations.
+- name: Location
+  id_field: id
+  description: A physical hiring/work location.
+- name: LocationGroup
+  id_field: id
+  description: A grouping of locations.
+- name: Stage
+  id_field: id
+  description: A workflow stage within an opening; applicants transition across stages.
+- name: Workflow
+  id_field: id
+  description: The ordered set of stages that defines an opening's hiring process.
+- name: AvailableSlot
+  id_field: id
+  description: A bookable interview/onboarding calendar slot for a stage.
+- name: BookedSlot
+  id_field: id
+  description: A slot booked by an applicant (an interview session).
+- name: Session
+  id_field: id
+  description: A booked interview session record.
+- name: Label
+  id_field: title
+  description: A tag applied to applicants within a stage.
+- name: Note
+  id_field: note_id
+  description: A free-text note attached to an applicant.
+- name: SecureDocument
+  id_field: id
+  description: A file uploaded/collected for an applicant (S3-backed, approvable).
+- name: Worker
+  id_field: id
+  description: A post-hire worker (activated applicant) in the workforce services.
+- name: User
+  id_field: id
+  description: A Fountain account user with roles and opening access.
+- name: Role
+  id_field: id
+  description: A permission role assignable to users.
+- name: CustomAttribute
+  id_field: type
+  description: Company-level or entity-level custom attribute definitions.
+- name: Webhook
+  id_field: id
+  description: A configured webhook subscription and its events.
+- name: Export
+  id_field: id
+  description: A custom or timestamped data export job.
+relationships:
+- from: Opening
+  to: Position
+  type: belongs_to
+  via: position
+- from: Opening
+  to: Location
+  type: belongs_to
+  via: location
+- from: Location
+  to: LocationGroup
+  type: belongs_to
+  via: location_group
+- from: Opening
+  to: Workflow
+  type: has_one
+  via: workflow
+- from: Workflow
+  to: Stage
+  type: has_many
+  via: stages
+- from: Applicant
+  to: Opening
+  type: belongs_to
+  via: opening
+- from: Applicant
+  to: Stage
+  type: belongs_to
+  via: stage
+- from: Applicant
+  to: Label
+  type: has_many
+  via: labels
+- from: Applicant
+  to: Note
+  type: has_many
+  via: notes
+- from: Applicant
+  to: SecureDocument
+  type: has_many
+  via: secure_documents
+- from: Applicant
+  to: BookedSlot
+  type: has_many
+  via: booked_slots
+- from: Stage
+  to: AvailableSlot
+  type: has_many
+  via: available_slots
+- from: AvailableSlot
+  to: BookedSlot
+  type: has_many
+  via: booked_slots
+- from: Applicant
+  to: Worker
+  type: has_one
+  via: worker
+- from: User
+  to: Role
+  type: has_many
+  via: roles
+- from: User
+  to: Opening
+  type: has_many
+  via: opening_access

@@ -1,0 +1,29 @@
+generated: '2026-07-19'
+method: searched
+source: live probes of /.well-known/ across Fountain hosts
+hosts:
+- host: https://www.fountain.com
+  documents:
+  - path: /.well-known/security.txt        # RFC 9116
+    status: 200
+    file: fountain-security.txt
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://services.fountain.com
+  documents:
+  - path: /.well-known/security.txt        # RFC 9116 (same record served)
+    status: 200
+    file: fountain-security.txt
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+- host: https://api.fountain.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: fountain-security.txt
+notes: >-
+  security.txt is served across the apex, www, api, and services hosts. Fountain's
+  OAuth2 token endpoint is not advertised via RFC 8414 / OIDC discovery documents;
+  the token URL is documented at developer.fountain.com instead.

@@ -1,0 +1,52 @@
+generated: '2026-07-19'
+method: searched
+source: https://developer.fountain.com/reference/overview
+authentication:
+  style: OAuth2 client-credentials bearer (services gateway) or X-ACCESS-TOKEN header key (legacy tenant hosts)
+  see: authentication/fountain-authentication.yml
+base_urls:
+  services_gateway: https://services.fountain.com/api/
+  hire_v2_via_gateway: https://services.fountain.com/api/servicehire/v2/
+  legacy_main_tenant: https://api.fountain.com/v2/
+  legacy_region_tenant: https://{region}.fountain.com/api/v2
+pagination:
+  style: page
+  documented: partial
+  notes: >-
+    List endpoints (e.g. sessions, company attributes) return paginated collections
+    and support pagination parameters; the docs describe list endpoints as paginated
+    but do not publish a single canonical cursor/offset contract across all services.
+  see: rate-limits/fountain-rate-limits.yml
+idempotency:
+  key_header: null
+  supported: partial
+  notes: >-
+    No global Idempotency-Key request header is documented. Certain destructive
+    operations are explicitly idempotent by design — the GDPR-anonymize endpoints
+    are a documented no-op when re-invoked on an already-anonymized applicant — but
+    Fountain does not publish a client-supplied idempotency-key contract, so no
+    /idempoten/ rating pointer is claimed.
+rate_limiting:
+  default: 120/minute
+  throttled_status: 429
+  signal_headers: [X-Api-Ratelimit-Limit, X-Api-Ratelimit-Limit-Remaining, X-Api-Ratelimit-Reset]
+  see: rate-limits/fountain-rate-limits.yml
+webhooks:
+  signing: HMAC-SHA-256 over the raw request body, hex-encoded
+  signature_header: X-OBIQ-SIGNATURE-V2
+  secret: the Fountain Hire private API token
+  retries: 2 retries after the initial failure
+  auto_disable: disabled after 10 failures within 24 hours
+  egress_ip_allowlist: 15 published Fountain egress IPs (optional)
+  see: asyncapi/fountain-webhooks.yml
+versioning:
+  scheme: uri-path (/v2/) plus per-service path segments
+  deprecation: RFC 8594 Sunset header + Link rel="sunset"
+  see: lifecycle/fountain-lifecycle.yml
+error_envelope:
+  format: JSON error object
+  see: errors/fountain-problem-types.yml
+file_uploads:
+  pattern: two-step S3 presigned upload then link (or single upload-and-link call)
+  max_size_mb: 15
+  allowed_types: [PDF, JPG, JPEG, PNG, GIF, HEIC, HEIF, WEBP, AVIF, DOC, DOCX, TXT]

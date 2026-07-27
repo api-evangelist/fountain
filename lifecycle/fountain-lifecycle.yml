@@ -1,0 +1,30 @@
+generated: '2026-07-19'
+method: searched
+source: https://developer.fountain.com/reference/deprecations
+versioning:
+  scheme: uri-path
+  current: v2
+  docs: https://developer.fountain.com/reference/overview
+  notes: >-
+    Hire API is pinned at /v2/ in the path. Newer capabilities are exposed as
+    per-service segments (servicehire, serviceworkforce, serviceattendance,
+    serviceorganizations, servicetodo, servicepulse, serviceemployment, servicepool,
+    servicemedia, servicesecurity, servicecompliancev2, servicereferral, servicestaff)
+    behind the services.fountain.com gateway.
+deprecation:
+  policy_url: https://developer.fountain.com/reference/deprecations
+  standard: RFC 8594
+  sunset_header: true
+  example_headers:
+  - 'Sunset: Fri, 01 Dec 2023 00:00:00 GMT'
+  - 'Link: <https://developer.fountain.com/reference/deprecations>; rel="sunset"'
+  active_deprecations: []
+  notes: >-
+    Fountain implements RFC 8594 to advertise a future sunset date for any deprecated
+    endpoint via the Sunset header plus a Link rel="sunset" pointer to the deprecations
+    reference. The published deprecations table currently lists no active entries.
+status_page: https://status.fountain.com/
+sla:
+  url: null
+  notes: Uptime is published on the status page; no public numeric SLA target found.
+deprecated_operations: []

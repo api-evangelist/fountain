@@ -1,25 +1,138 @@
 aid: fountain
 name: Fountain
-description: 'Fountain is a company surfaced as a portfolio company of softbank-vision-fund, y-combinator
-  and added to the API Evangelist network as a stub for enrichment. Sector: enterprise. This profile is
-  a lead awaiting the enrichment pipeline.'
+description: >-
+  Fountain is an AI-powered frontline workforce management platform used by 500+
+  enterprise employers across retail, logistics, hospitality, healthcare, and food
+  service to source, hire, onboard, schedule, and retain high-volume hourly workers.
+  Its developer platform exposes a REST API — the Hire v2 API plus newer Workforce,
+  Attendance, Scheduling, Compliance, Referral, Pool, and Pulse microservices — for
+  programmatically managing applicants, openings, positions, locations, interview
+  slots, workers, documents, custom attributes, and data exports. Authentication is
+  OAuth2 client-credentials (with a legacy X-ACCESS-TOKEN key model on tenant hosts),
+  webhooks are HMAC-SHA-256 signed, requests are rate limited to 120/minute, and
+  deprecations are signaled with RFC 8594 Sunset headers.
 url: https://raw.githubusercontent.com/api-evangelist/fountain/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - softbank-vision-fund
 - y-combinator
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: active
+x-tier-reason: enriched
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
+image: https://logo.clearbit.com/fountain.com
 tags:
 - Company
 - Enterprise
-apis: []
+- Hiring
+- Recruiting
+- Applicant Tracking
+- Human Resources
+- Workforce Management
+- Onboarding
+- Scheduling
+- HR Tech
+- Frontline
+apis:
+- name: Fountain Platform API
+  description: >-
+    Fountain's REST API for managing hiring and frontline workforce data —
+    applicants, openings, positions, locations, interview slots and sessions,
+    workers, secure documents, labels, notes, custom attributes, webhooks, and
+    data exports. Combines the classic Hire v2 API with the newer Workforce,
+    Attendance, Scheduling, Compliance, Pool, Referral, Media, and Pulse services
+    behind the services.fountain.com gateway.
+  humanURL: https://developer.fountain.com/
+  baseURL: https://services.fountain.com/api/
+  tags:
+  - Hiring
+  - Applicant Tracking
+  - Workforce Management
+  properties:
+  - type: Documentation
+    url: https://developer.fountain.com/
+  - type: APIReference
+    url: https://developer.fountain.com/reference/overview
+  - type: GettingStarted
+    url: https://developer.fountain.com/reference/hire-api-overview
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+common:
+- type: VulnerabilityDisclosure
+  url: security/fountain-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/fountain-domain-security.yml
+- type: DeveloperPortal
+  url: https://developer.fountain.com/
+- type: Documentation
+  url: https://developer.fountain.com/
+- type: APIReference
+  url: https://developer.fountain.com/reference/overview
+- type: GettingStarted
+  url: https://developer.fountain.com/reference/hire-api-overview
+- type: Support
+  url: https://support.fountain.com/en/
+- type: Blog
+  url: https://www.fountain.com/blog
+- type: StatusPage
+  url: https://status.fountain.com/
+- type: Login
+  url: https://app.fountain.com/
+- type: TermsOfService
+  url: https://privacy.fountain.com/policies/en/?name=terms-of-service
+- type: PrivacyPolicy
+  url: https://privacy.fountain.com/policies/en/
+- type: Security
+  url: https://www.fountain.com/security
+- type: TrustCenter
+  url: https://trust.fountain.com/
+- type: Deprecation
+  url: https://developer.fountain.com/reference/deprecations
+- type: Authentication
+  url: authentication/fountain-authentication.yml
+- type: Lifecycle
+  url: lifecycle/fountain-lifecycle.yml
+- type: Conventions
+  url: conventions/fountain-conventions.yml
+- type: RateLimits
+  url: rate-limits/fountain-rate-limits.yml
+- type: ErrorCatalog
+  url: errors/fountain-problem-types.yml
+- type: Conformance
+  url: conformance/fountain-conformance.yml
+- type: Webhooks
+  url: asyncapi/fountain-webhooks.yml
+- type: MCPServer
+  url: mcp/fountain-mcp.yml
+- type: DataModel
+  url: data-model/fountain-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/fountain-llms.txt
+- type: SecurityTxt
+  url: well-known/fountain-security.txt
+- type: WellKnown
+  url: well-known/fountain-well-known.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

@@ -1,0 +1,16 @@
+generated: '2026-07-19'
+method: generated
+source: llms/fountain-llms.txt (grounded in documented Fountain Hire v2 operations)
+skills:
+- file: fountain-create-and-advance-applicant.md
+  name: Create and advance an applicant
+  api: llms/fountain-llms.txt
+  operations: [Create an Applicant, Advance an Applicant, Get Transition History, Notify applicant]
+- file: fountain-schedule-interview.md
+  name: Schedule and manage an interview slot
+  api: llms/fountain-llms.txt
+  operations: [Create Calendar Slots, List Available Slots, Book an Available Slot, Cancel a booked slot]
+- file: fountain-collect-and-approve-documents.md
+  name: Collect and approve applicant documents
+  api: llms/fountain-llms.txt
+  operations: [Upload File and Link to Applicant, Approve Applicant Documents, Trigger file recollection]

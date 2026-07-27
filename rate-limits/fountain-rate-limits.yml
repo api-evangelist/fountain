@@ -1,0 +1,23 @@
+generated: '2026-07-19'
+method: searched
+source: https://developer.fountain.com/reference/rate-limitations
+default_limit: 120
+window: minute
+throttled_status: 429
+throttled_body: 'Too many API requests.'
+headers:
+- name: X-Api-Ratelimit-Limit
+  meaning: Maximum requests per minute allowed.
+- name: X-Api-Ratelimit-Limit-Remaining
+  meaning: Requests remaining in the current window.
+- name: X-Api-Ratelimit-Reset
+  meaning: Unix timestamp when the current window resets.
+rate_limits:
+- limit_count: 120
+  interval: 60
+  unit: minute
+  scope: default per-account
+  description: By default up to 120 requests per minute; returns HTTP 429 when exceeded.
+notes: >-
+  Limits are per account/token. Fountain recommends honoring X-Api-Ratelimit-Reset
+  for backoff. Higher limits are negotiated with Fountain for enterprise volume.

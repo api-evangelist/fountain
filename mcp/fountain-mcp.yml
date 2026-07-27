@@ -1,0 +1,143 @@
+generated: '2026-07-19'
+method: derived
+status: candidate
+source: llms/fountain-llms.txt (Fountain Hire v2 documented operations)
+server:
+  name: fountain
+  transport: http
+  url: null
+  note: No official hosted/remote Fountain MCP server was found; this is a candidate tool set derived
+    from documented Hire v2 operations.
+auth:
+  type: oauth2
+  flow: clientCredentials
+  token_url: https://services.fountain.com/api/servicesecurity/processes/apikey/oauth/token
+tools:
+- name: list_all_applicants
+  description: Get all applicants
+  method: GET
+  source_operation: llms/fountain-llms.txt#get_v2-applicants
+- name: create_an_applicant
+  description: Create an applicant
+  method: POST
+  source_operation: llms/fountain-llms.txt#post_v2-applicants
+- name: get_applicant_info
+  description: Get an applicant's data as it is stored in Fountain.
+  method: GET
+  source_operation: llms/fountain-llms.txt#get_v2-applicants-id
+- name: update_applicant_info
+  description: Update an applicant's information
+  method: PUT
+  source_operation: llms/fountain-llms.txt#put_v2-applicants-id
+- name: delete_an_applicant
+  description: Delete an applicant and their information
+  method: DELETE
+  source_operation: llms/fountain-llms.txt#delete_v2-applicants-id
+- name: advance_an_applicant
+  description: Advance an applicant in an opening
+  method: PUT
+  source_operation: llms/fountain-llms.txt#put_v2-applicants-id-advance
+- name: bulk_advance_multiple_applicants
+  description: Advance multiple applicants within an opening
+  method: POST
+  source_operation: llms/fountain-llms.txt#post_v2-applicants-advance
+- name: get_transition_history
+  description: Retrieve the transition history for an applicant
+  method: GET
+  source_operation: llms/fountain-llms.txt#get_v2-applicants-id-transitions
+- name: get_interview_sessions
+  description: Retrieves the interview sessions for an applicant
+  method: GET
+  source_operation: llms/fountain-llms.txt#get_v2-applicants-id-booked-slots
+- name: notify_applicant
+  description: Notify the applicant via sms and email to continue the application with the PORTAL_URL
+  method: POST
+  source_operation: llms/fountain-llms.txt#post_v2-applicants-notify
+- name: get_latest_applicant
+  description: Get the latest matching applicant
+  method: GET
+  source_operation: llms/fountain-llms.txt#get_v2-applicants-latest-applicant
+- name: get_applicant_files
+  description: Accessing secure file uploads from Fountain.
+  method: GET
+  source_operation: llms/fountain-llms.txt#get_v2-applicants-id-secure-documents
+- name: upload_file_and_link_to_applicant
+  description: Uploads a file to S3 and links it to the applicant in a single call. Consolidation of `/upload`
+    + direct S3 POST + `/link_upload`.  **Allowed file types:** PDF, JPG, JPEG, PNG, GIF
+  method: POST
+  source_operation: llms/fountain-llms.txt#post_v2-applicants-id-secure-documents-upload-and-link
+- name: approve_applicant_documents
+  description: Approve multiple applicant documents by their associated data field keys
+  method: POST
+  source_operation: llms/fountain-llms.txt#post_v2-applicants-id-secure-documents-approve
+- name: get_applicant_sms_messages
+  description: Accessing Applicant SMS Messages
+  method: GET
+  source_operation: llms/fountain-llms.txt#get_v2-applicants-id-sms-messages
+- name: send_sms_message
+  description: Send SMS Message to Applicant
+  method: POST
+  source_operation: llms/fountain-llms.txt#post_v2-applicants-id-sms-messages
+- name: gdpr_anonymize_an_applicant
+  description: Anonymizes an applicant's personal data per GDPR right-to-erasure. Idempotent — a no-op
+    if the applicant has already been anonymized.
+  method: POST
+  source_operation: llms/fountain-llms.txt#post_v2-applicants-id-gdpr-anonymize
+- name: list_labels_for_applicant
+  description: This lists all labels for an applicant.
+  method: GET
+  source_operation: llms/fountain-llms.txt#get_v2-applicants-id-labels
+- name: update_label_for_applicant
+  description: This method updates a list of labels for an applicant. Use it to delete existing labels
+    for an applicant or add new ones.
+  method: PUT
+  source_operation: llms/fountain-llms.txt#put_v2-applicants-id-labels-title
+- name: get_applicant_notes
+  description: Accessing Applicant Notes
+  method: GET
+  source_operation: llms/fountain-llms.txt#get_v2-applicants-id-notes
+- name: create_applicant_note
+  description: Creating Applicant Notes
+  method: POST
+  source_operation: llms/fountain-llms.txt#post_v2-applicants-id-notes
+- name: create_calendar_slots
+  description: Create a new available slot
+  method: POST
+  source_operation: llms/fountain-llms.txt#post_v2-available-slots
+- name: book_an_available_slot
+  description: Book an available slot with an applicant
+  method: POST
+  source_operation: llms/fountain-llms.txt#post_v2-available-slots-id-confirm
+- name: cancel_a_booked_slot
+  description: Cancel a booked slot
+  method: POST
+  source_operation: llms/fountain-llms.txt#post_v2-booked-slots-id-cancel
+- name: list_calendar_slots
+  description: List all booked slots for an account. Option to include unbooked slots as well. Supports
+    filtering on opening and stage as well as pagination
+  method: GET
+  source_operation: llms/fountain-llms.txt#get_v2-sessions
+- name: list_available_slots
+  description: List all available slots for a given stage
+  method: GET
+  source_operation: llms/fountain-llms.txt#get_v2-stages-id-available-slots
+- name: list_positions
+  description: List all Positions within your account. Check the example to see all properties available.
+  method: GET
+  source_operation: llms/fountain-llms.txt#get_v2-positions
+- name: list_locations
+  description: List all Locations within your account. Check the example to see all properties available.
+  method: GET
+  source_operation: llms/fountain-llms.txt#get_v2-locations
+- name: get_users
+  description: Accessing all account users
+  method: GET
+  source_operation: llms/fountain-llms.txt#get_v2-users
+- name: list_workers
+  description: List Workers
+  method: GET
+  source_operation: llms/fountain-llms.txt#get_v2-workers
+- name: list_company_attributes
+  description: Returns a paginated list of company attributes for the account
+  method: GET
+  source_operation: llms/fountain-llms.txt#get_v2-company-attributes
