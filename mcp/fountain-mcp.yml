@@ -141,3 +141,9 @@ tools:
   description: Returns a paginated list of company attributes for the account
   method: GET
   source_operation: llms/fountain-llms.txt#get_v2-company-attributes
+deployment:
+  mode: none
+  verified: derived
+  tools: 31
+  checked: '2026-08-12'
+  source: catalog MCP census
